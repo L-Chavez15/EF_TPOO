@@ -77,8 +77,25 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnEditarCliente = new javax.swing.JButton();
         btnEliminarCliente = new javax.swing.JButton();
         btnLimpiarCliente = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        pnlVentas = new javax.swing.JPanel();
+        pnlEncabezadoVentas = new javax.swing.JPanel();
+        lblTituloVentas = new javax.swing.JLabel();
+        pnlDatosVenta = new javax.swing.JPanel();
+        lblClienteVenta = new javax.swing.JLabel();
+        cboClienteVenta = new javax.swing.JComboBox<>();
+        lblEmpleadoVenta = new javax.swing.JLabel();
+        cboEmpleadoVenta = new javax.swing.JComboBox<>();
+        lblFechaVenta = new javax.swing.JLabel();
+        txtFechaVenta = new javax.swing.JTextField();
+        pnlAgregarProductoVenta = new javax.swing.JPanel();
+        lblProductoVenta = new javax.swing.JLabel();
+        cboProductoVenta = new javax.swing.JComboBox<>();
+        lblCantidadVenta = new javax.swing.JLabel();
+        txtCantidadVenta = new javax.swing.JTextField();
+        btnAgregarProductoVenta = new javax.swing.JButton();
+        spDetalleVenta = new javax.swing.JScrollPane();
+        tblDetalleVenta = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tienda de Ropa - Panel Principal");
@@ -207,7 +224,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jButton4.setText("Limpiar");
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 160, 40));
 
-        jButton5.setBackground(new java.awt.Color(217, 74, 117));
+        jButton5.setBackground(new java.awt.Color(220, 53, 69));
         jButton5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("CERRAR SESIÓN");
@@ -397,21 +414,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         tabModulos.addTab("CLIENTES", jPanel3);
 
-        jPanel4.setBackground(new java.awt.Color(243, 240, 248));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 940, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 375, Short.MAX_VALUE)
-        );
-
-        tabModulos.addTab("VENTAS", jPanel4);
-
         jPanel5.setBackground(new java.awt.Color(243, 240, 248));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -427,6 +429,113 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         tabModulos.addTab("COMPRAS", jPanel5);
 
+        pnlVentas.setBackground(new java.awt.Color(243, 240, 248));
+        pnlVentas.setMinimumSize(new java.awt.Dimension(930, 480));
+        pnlVentas.setPreferredSize(new java.awt.Dimension(930, 480));
+        pnlVentas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pnlEncabezadoVentas.setBackground(new java.awt.Color(40, 33, 63));
+        pnlEncabezadoVentas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblTituloVentas.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+        lblTituloVentas.setForeground(new java.awt.Color(255, 255, 255));
+        lblTituloVentas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloVentas.setText("REGISTRO DE VENTAS");
+        pnlEncabezadoVentas.add(lblTituloVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 900, 30));
+
+        pnlVentas.add(pnlEncabezadoVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 920, 42));
+
+        pnlDatosVenta.setBackground(new java.awt.Color(255, 255, 255));
+        pnlDatosVenta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblClienteVenta.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblClienteVenta.setForeground(new java.awt.Color(36, 32, 57));
+        lblClienteVenta.setText("Cliente:");
+        pnlDatosVenta.add(lblClienteVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 8, 65, 30));
+
+        cboClienteVenta.setForeground(new java.awt.Color(36, 32, 57));
+        cboClienteVenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pnlDatosVenta.add(cboClienteVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 8, 250, 30));
+
+        lblEmpleadoVenta.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblEmpleadoVenta.setForeground(new java.awt.Color(36, 32, 57));
+        lblEmpleadoVenta.setText("Empleado:");
+        pnlDatosVenta.add(lblEmpleadoVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 8, 70, 30));
+
+        cboEmpleadoVenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pnlDatosVenta.add(cboEmpleadoVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, 220, 30));
+
+        lblFechaVenta.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblFechaVenta.setForeground(new java.awt.Color(36, 32, 57));
+        lblFechaVenta.setText("Fecha:");
+        pnlDatosVenta.add(lblFechaVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(655, 8, 60, 30));
+
+        txtFechaVenta.setEditable(false);
+        txtFechaVenta.setBackground(new java.awt.Color(255, 255, 255));
+        txtFechaVenta.setForeground(new java.awt.Color(36, 32, 57));
+        pnlDatosVenta.add(txtFechaVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(715, 8, 175, 30));
+
+        pnlVentas.add(pnlDatosVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 920, 50));
+
+        pnlAgregarProductoVenta.setBackground(new java.awt.Color(243, 240, 248));
+        pnlAgregarProductoVenta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblProductoVenta.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblProductoVenta.setForeground(new java.awt.Color(40, 33, 63));
+        lblProductoVenta.setText("Producto:");
+        pnlAgregarProductoVenta.add(lblProductoVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 70, 20));
+
+        cboProductoVenta.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        cboProductoVenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pnlAgregarProductoVenta.add(cboProductoVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 15, 350, 30));
+
+        lblCantidadVenta.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblCantidadVenta.setText("Cantidad:");
+        pnlAgregarProductoVenta.add(lblCantidadVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, 70, 20));
+
+        txtCantidadVenta.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        pnlAgregarProductoVenta.add(txtCantidadVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 15, 100, 30));
+
+        btnAgregarProductoVenta.setBackground(new java.awt.Color(124, 58, 237));
+        btnAgregarProductoVenta.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnAgregarProductoVenta.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregarProductoVenta.setText("+ AGREGAR");
+        pnlAgregarProductoVenta.add(btnAgregarProductoVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 15, 245, 30));
+
+        pnlVentas.add(pnlAgregarProductoVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 920, 65));
+
+        spDetalleVenta.setBackground(new java.awt.Color(216, 201, 244));
+        spDetalleVenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        spDetalleVenta.setForeground(new java.awt.Color(40, 33, 63));
+        spDetalleVenta.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        tblDetalleVenta.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Producto", "Talla", "Color", "Precio unitario", "Cantidad", "Subtotal"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tblDetalleVenta.setGridColor(new java.awt.Color(225, 225, 225));
+        tblDetalleVenta.setSelectionBackground(new java.awt.Color(216, 201, 244));
+        spDetalleVenta.setViewportView(tblDetalleVenta);
+
+        pnlVentas.add(spDetalleVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 920, 140));
+
+        tabModulos.addTab("VENTAS", pnlVentas);
+
         pnlContenido.add(tabModulos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 12, 940, 410));
 
         getContentPane().add(pnlContenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 980, 433));
@@ -434,13 +543,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void btnBuscarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCategoriaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarCategoriaActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -468,6 +577,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarProductoVenta;
     private javax.swing.JButton btnBuscarCategoria;
     private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnEditarCategoria;
@@ -478,6 +588,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiarCliente;
     private javax.swing.JButton btnNuevaCategoria;
     private javax.swing.JButton btnNuevoCliente;
+    private javax.swing.JComboBox<String> cboClienteVenta;
+    private javax.swing.JComboBox<String> cboEmpleadoVenta;
+    private javax.swing.JComboBox<String> cboProductoVenta;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -486,10 +599,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel lblBuscarCategoria;
     private javax.swing.JLabel lblBuscarCliente;
+    private javax.swing.JLabel lblCantidadVenta;
+    private javax.swing.JLabel lblClienteVenta;
+    private javax.swing.JLabel lblEmpleadoVenta;
+    private javax.swing.JLabel lblFechaVenta;
+    private javax.swing.JLabel lblProductoVenta;
     private javax.swing.JLabel lblSubtitulo;
     private javax.swing.JLabel lblSubtituloCategorias;
     private javax.swing.JLabel lblSubtituloClientes;
@@ -498,20 +615,29 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblTituloCategorias;
     private javax.swing.JLabel lblTituloClientes;
     private javax.swing.JLabel lblTituloProductos;
+    private javax.swing.JLabel lblTituloVentas;
+    private javax.swing.JPanel pnlAgregarProductoVenta;
     private javax.swing.JPanel pnlBusquedaCategorias;
     private javax.swing.JPanel pnlBusquedaClientes;
     private javax.swing.JPanel pnlCategorias;
     private javax.swing.JPanel pnlContenido;
+    private javax.swing.JPanel pnlDatosVenta;
     private javax.swing.JPanel pnlEncabezado;
+    private javax.swing.JPanel pnlEncabezadoVentas;
     private javax.swing.JPanel pnlProductos;
+    private javax.swing.JPanel pnlVentas;
     private javax.swing.JScrollPane spCategorias;
     private javax.swing.JScrollPane spClientes;
+    private javax.swing.JScrollPane spDetalleVenta;
     private javax.swing.JScrollPane spProductos;
     private javax.swing.JTabbedPane tabModulos;
     private javax.swing.JTable tblCategorias;
     private javax.swing.JTable tblClientes;
+    private javax.swing.JTable tblDetalleVenta;
     private javax.swing.JTable tblProductos;
     private javax.swing.JTextField txtBuscarCategoria;
     private javax.swing.JTextField txtBuscarCliente;
+    private javax.swing.JTextField txtCantidadVenta;
+    private javax.swing.JTextField txtFechaVenta;
     // End of variables declaration//GEN-END:variables
 }
