@@ -28,7 +28,16 @@ public class VistaPrincipal extends javax.swing.JFrame {
         getContentPane().setBackground(new java.awt.Color(243, 240, 248));
         
         controladorCategoria = new ControladorCategoria();
-       
+    }
+    private void actualizarTablaCategorias()
+    {
+        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tblCategorias.getModel();
+        modelo.setRowCount(0);//limpia la tabla.
+        //for recorrerá cada categoría
+        for (Categoria c : controladorCategoria.obtenerTodos())//obtiene las categorías registradas
+        {
+            modelo.addRow(new Object[]{c.getIdCategoria(),c.getNombreCategoria()});//agrega sus datos a la tabla.
+        }
     }
 
     /**
@@ -792,9 +801,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     private void btnLimpiarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarCategoriaActionPerformed
         // TODO add your handling code here:
-        txtBuscarCategoria.setText("");
-        javax.swing.table.DefaultTableModel modelo =(javax.swing.table.DefaultTableModel) tblCategorias.getModel();
-        modelo.setRowCount(0);
+        txtBuscarCategoria.setText("");//deja vacío el campo de búsqueda
+        javax.swing.table.DefaultTableModel modelo =(javax.swing.table.DefaultTableModel) tblCategorias.getModel();//obtiene el modelo de la tabla.
+        modelo.setRowCount(0);//elimina todas las filas que se estén mostrando.
     }//GEN-LAST:event_btnLimpiarCategoriaActionPerformed
 
     /**
