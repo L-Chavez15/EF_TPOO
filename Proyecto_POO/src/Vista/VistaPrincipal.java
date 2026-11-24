@@ -378,6 +378,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnEliminarCategoria.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnEliminarCategoria.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarCategoria.setText("ELIMINAR");
+        btnEliminarCategoria.addActionListener(this::btnEliminarCategoriaActionPerformed);
         pnlCategorias.add(btnEliminarCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 320, 160, 40));
 
         btnLimpiarCategoria.setBackground(new java.awt.Color(100, 92, 120));
@@ -876,6 +877,39 @@ public class VistaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "SELECCIONE UNA CATEGORIA");
         }
     }//GEN-LAST:event_btnEditarCategoriaActionPerformed
+
+    private void btnEliminarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCategoriaActionPerformed
+        // TODO add your handling code here:
+        int fila = tblCategorias.getSelectedRow();//obtiene la fila seleccionada.
+        if (fila != -1)
+        {
+            Integer idCategoria = (Integer) tblCategorias.getValueAt(fila, 0);
+
+            int respuesta = JOptionPane.showConfirmDialog(this,
+                    "¿ESTA SEGURO DE ELIMINAR LA CATEGORIA?",
+                    "CONFIRMAR ELIMINACION",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (respuesta == JOptionPane.YES_OPTION)
+            {
+                if (controladorCategoria.eliminar(idCategoria))
+                {
+                    actualizarTablaCategorias();
+
+                    JOptionPane.showMessageDialog(this, "CATEGORIA ELIMINADA CORRECTAMENTE");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "NO SE PUDO ELIMINAR LA CATEGORIA");
+                }
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "SELECCIONE UNA CATEGORIA");//solicita confirmación, Si el usuario pulsa Sí,se elimina y actualiza la tabla
+        }
+    }//GEN-LAST:event_btnEliminarCategoriaActionPerformed
 
     /**
      * @param args the command line arguments
