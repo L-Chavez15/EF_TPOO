@@ -70,6 +70,20 @@ public class ControladorCategoria
         }
         return false;
     }
+    public boolean eliminar(Integer idCategoria)
+    {
+        Categoria categoria_eliminar = buscarPorId(idCategoria);
+
+        if (categoria_eliminar != null)
+        {
+            lista_categorias.remove(categoria_eliminar);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public Categoria buscar(String nombre)
     {
         for (Categoria c : lista_categorias)

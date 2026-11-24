@@ -371,6 +371,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnEditarCategoria.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnEditarCategoria.setForeground(new java.awt.Color(255, 255, 255));
         btnEditarCategoria.setText("EDITAR");
+        btnEditarCategoria.addActionListener(this::btnEditarCategoriaActionPerformed);
         pnlCategorias.add(btnEditarCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 320, 160, 40));
 
         btnEliminarCategoria.setBackground(new java.awt.Color(220, 53, 69));
@@ -836,6 +837,45 @@ public class VistaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "DEBE INGRESAR UN NOMBRE");
         }
     }//GEN-LAST:event_btnNuevaCategoriaActionPerformed
+
+    private void btnEditarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCategoriaActionPerformed
+        // TODO add your handling code here:
+        int fila = tblCategorias.getSelectedRow();
+        if (fila != -1)
+        {
+            Integer idCategoria = (Integer) tblCategorias.getValueAt(fila, 0);
+
+            Categoria categoria_editar = controladorCategoria.buscarPorId(idCategoria);
+
+            String nombreNuevo = JOptionPane.showInputDialog(this,"Ingrese el nuevo nombre:",categoria_editar.getNombreCategoria());
+
+            if (nombreNuevo != null && !nombreNuevo.trim().isEmpty())
+            {
+                String descripcionNueva = JOptionPane.showInputDialog(this,"Ingrese la nueva descripcion:",categoria_editar.getDescripcion());
+
+                if (descripcionNueva != null)
+                {
+                    if (controladorCategoria.editar(idCategoria, nombreNuevo, descripcionNueva))
+                    {
+                        actualizarTablaCategorias();
+                        JOptionPane.showMessageDialog(this, "CATEGORIA MODIFICADA CORRECTAMENTE");
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(this, "NO SE PUDO MODIFICAR LA CATEGORIA");
+                    }
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "EL NOMBRE NO PUEDE ESTAR VACIO");
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "SELECCIONE UNA CATEGORIA");
+        }
+    }//GEN-LAST:event_btnEditarCategoriaActionPerformed
 
     /**
      * @param args the command line arguments
