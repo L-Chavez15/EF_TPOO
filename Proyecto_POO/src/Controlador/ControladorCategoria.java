@@ -36,7 +36,40 @@ public class ControladorCategoria
             return false;
         }
     }
+    public boolean editar(Integer idCategoria, String nombreNuevo, String descripcionNueva)
+    {
+        if (nombreNuevo != null && !nombreNuevo.trim().isEmpty())
+        {
+            Categoria categoria_editar = null;
 
+            for (Categoria c : lista_categorias)
+            {
+                if (c.getIdCategoria().equals(idCategoria))
+                {
+                    categoria_editar = c;
+                }
+            }
+
+            if (categoria_editar != null)
+            {
+                for (Categoria c : lista_categorias)
+                {
+                    if (!c.getIdCategoria().equals(idCategoria))
+                    {
+                        if (c.getNombreCategoria().equalsIgnoreCase(nombreNuevo))
+                        {
+                            System.out.println("ERROR: CATEGORIA YA REGISTRADA");
+                            return false;
+                        }
+                    }
+                }
+                categoria_editar.setNombreCategoria(nombreNuevo);
+                categoria_editar.setDescripcion(descripcionNueva);
+                return true;
+            }
+        }
+        return false;
+    }
     public Categoria buscar(String nombre)
     {
         for (Categoria c : lista_categorias)
@@ -46,6 +79,18 @@ public class ControladorCategoria
                 return c;
             }
         }
+        return null;
+    }
+    public Categoria buscarPorId(Integer idCategoria)
+    {
+        for (Categoria c : lista_categorias)
+        {
+            if (c.getIdCategoria().equals(idCategoria))
+            {
+                return c;
+            }
+        }
+
         return null;
     }
 
