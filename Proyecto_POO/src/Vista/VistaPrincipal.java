@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 public class VistaPrincipal extends javax.swing.JFrame {
     
     private ControladorCategoria controladorCategoria;
+    private int contadorCategoria = 1;//Este contador permitirá asignar IDs consecutivos
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaPrincipal.class.getName());
 
     /**
@@ -363,6 +364,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnNuevaCategoria.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnNuevaCategoria.setForeground(new java.awt.Color(255, 255, 255));
         btnNuevaCategoria.setText("+ NUEVA");
+        btnNuevaCategoria.addActionListener(this::btnNuevaCategoriaActionPerformed);
         pnlCategorias.add(btnNuevaCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 160, 40));
 
         btnEditarCategoria.setBackground(new java.awt.Color(124, 58, 237));
@@ -805,6 +807,35 @@ public class VistaPrincipal extends javax.swing.JFrame {
         javax.swing.table.DefaultTableModel modelo =(javax.swing.table.DefaultTableModel) tblCategorias.getModel();//obtiene el modelo de la tabla.
         modelo.setRowCount(0);//elimina todas las filas que se estén mostrando.
     }//GEN-LAST:event_btnLimpiarCategoriaActionPerformed
+
+    private void btnNuevaCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaCategoriaActionPerformed
+        // TODO add your handling code here:
+        String nombre = JOptionPane.showInputDialog(this, "Ingrese el nombre de la categoria:");
+        if (nombre != null && !nombre.trim().isEmpty())
+        {
+            String descripcion = JOptionPane.showInputDialog(this, "Ingrese la descripcion:");
+
+            if (descripcion != null)
+            {
+                Categoria categoria_nueva = new Categoria(contadorCategoria,nombre,descripcion);
+
+                if (controladorCategoria.agregar(categoria_nueva))
+                {
+                    contadorCategoria++;
+                    actualizarTablaCategorias();
+                    JOptionPane.showMessageDialog(this, "CATEGORIA REGISTRADA CORRECTAMENTE");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "LA CATEGORIA YA EXISTE");
+                }
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "DEBE INGRESAR UN NOMBRE");
+        }
+    }//GEN-LAST:event_btnNuevaCategoriaActionPerformed
 
     /**
      * @param args the command line arguments
