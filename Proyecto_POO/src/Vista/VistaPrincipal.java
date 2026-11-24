@@ -4,9 +4,12 @@
  */
 package Vista;
 
+import Controlador.ControladorCategoria;
+import Modelo.Categoria;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,6 +17,7 @@ import java.awt.Font;
  */
 public class VistaPrincipal extends javax.swing.JFrame {
     
+    private ControladorCategoria controladorCategoria;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaPrincipal.class.getName());
 
     /**
@@ -22,6 +26,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public VistaPrincipal() {
         initComponents();
         getContentPane().setBackground(new java.awt.Color(243, 240, 248));
+        
+        controladorCategoria = new ControladorCategoria();
        
     }
 
@@ -366,6 +372,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnLimpiarCategoria.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnLimpiarCategoria.setForeground(new java.awt.Color(255, 255, 255));
         btnLimpiarCategoria.setText("LIMPIAR");
+        btnLimpiarCategoria.addActionListener(this::btnLimpiarCategoriaActionPerformed);
         pnlCategorias.add(btnLimpiarCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 320, 160, 40));
 
         tabModulos.addTab("CATEGORIAS", pnlCategorias);
@@ -761,11 +768,34 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     private void btnBuscarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCategoriaActionPerformed
         // TODO add your handling code here:
+        String nombre = txtBuscarCategoria.getText();//obtenemos el texto escrito
+
+        Categoria categoria = controladorCategoria.buscar(nombre);//buscamos la categoria en el controlador
+
+        javax.swing.table.DefaultTableModel modelo =(javax.swing.table.DefaultTableModel) tblCategorias.getModel();//obtenemos el modelo de datos de la tabla
+
+        modelo.setRowCount(0);//limpia las filas que se mostraron
+
+        if (categoria != null)
+        {
+            modelo.addRow(new Object[]{categoria.getIdCategoria(),categoria.getNombreCategoria()});//agrega la categoria en la tabla
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "CATEGORIA NO ENCONTRADA");//muestra mensaje si no esxite la categotia
+        }
     }//GEN-LAST:event_btnBuscarCategoriaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnLimpiarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarCategoriaActionPerformed
+        // TODO add your handling code here:
+        txtBuscarCategoria.setText("");
+        javax.swing.table.DefaultTableModel modelo =(javax.swing.table.DefaultTableModel) tblCategorias.getModel();
+        modelo.setRowCount(0);
+    }//GEN-LAST:event_btnLimpiarCategoriaActionPerformed
 
     /**
      * @param args the command line arguments
