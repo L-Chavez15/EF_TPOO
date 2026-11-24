@@ -77,7 +77,31 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnEditarCliente = new javax.swing.JButton();
         btnEliminarCliente = new javax.swing.JButton();
         btnLimpiarCliente = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
+        pnlCompras = new javax.swing.JPanel();
+        pnlEncabezadoCompras = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        pnlDatosCompra = new javax.swing.JPanel();
+        lblProveedor = new javax.swing.JLabel();
+        cboProveedor = new javax.swing.JComboBox<>();
+        lblEmpleadoCompra = new javax.swing.JLabel();
+        cboEmpleadoCompra = new javax.swing.JComboBox<>();
+        lblFechaCompra = new javax.swing.JLabel();
+        txtFechaCompra = new javax.swing.JTextField();
+        pnlAgregarProductoCompra = new javax.swing.JPanel();
+        lblProductoCompra = new javax.swing.JLabel();
+        lblCantidadCompra = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        btnAgregarProductoCompra = new javax.swing.JButton();
+        cboProductoCompra = new javax.swing.JComboBox<>();
+        pnlDetalleCompra = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblDetalleCompra = new javax.swing.JTable();
+        pnlResumenCompra = new javax.swing.JPanel();
+        lblTotalCompra = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        btnQuitarProductoCompra = new javax.swing.JButton();
+        btnLimpiarCompra = new javax.swing.JButton();
+        btnRegistrarCompra = new javax.swing.JButton();
         pnlVentas = new javax.swing.JPanel();
         pnlEncabezadoVentas = new javax.swing.JPanel();
         lblTituloVentas = new javax.swing.JLabel();
@@ -96,6 +120,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnAgregarProductoVenta = new javax.swing.JButton();
         spDetalleVenta = new javax.swing.JScrollPane();
         tblDetalleVenta = new javax.swing.JTable();
+        pnlResumenVenta = new javax.swing.JPanel();
+        lblTotalVenta = new javax.swing.JLabel();
+        lblMontoTotalVenta = new javax.swing.JLabel();
+        btnQuitarProductoVenta = new javax.swing.JButton();
+        btnLimpiarVenta = new javax.swing.JButton();
+        btnRegistrarVenta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tienda de Ropa - Panel Principal");
@@ -126,7 +156,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Administrador");
-        pnlEncabezado.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 20, 150, 45));
+        pnlEncabezado.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 20, 150, 45));
 
         getContentPane().add(pnlEncabezado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 85));
 
@@ -181,9 +211,16 @@ public class VistaPrincipal extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tblProductos.setOpaque(false);
@@ -290,9 +327,16 @@ public class VistaPrincipal extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tblCategorias.setRowHeight(30);
@@ -377,9 +421,16 @@ public class VistaPrincipal extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tblClientes.setRowHeight(30);
@@ -414,20 +465,141 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         tabModulos.addTab("CLIENTES", jPanel3);
 
-        jPanel5.setBackground(new java.awt.Color(243, 240, 248));
+        pnlCompras.setBackground(new java.awt.Color(243, 240, 248));
+        pnlCompras.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 940, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 375, Short.MAX_VALUE)
-        );
+        pnlEncabezadoCompras.setBackground(new java.awt.Color(37, 33, 59));
+        pnlEncabezadoCompras.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tabModulos.addTab("COMPRAS", jPanel5);
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("REGISTRO DE COMPRAS");
+        pnlEncabezadoCompras.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 900, 40));
+
+        pnlCompras.add(pnlEncabezadoCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 920, 50));
+
+        pnlDatosCompra.setBackground(new java.awt.Color(255, 255, 255));
+        pnlDatosCompra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblProveedor.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblProveedor.setText("Proveedor:");
+        pnlDatosCompra.add(lblProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 20, 80, 25));
+
+        cboProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pnlDatosCompra.add(cboProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 15, 250, 30));
+
+        lblEmpleadoCompra.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblEmpleadoCompra.setText("\tEmpleado:");
+        pnlDatosCompra.add(lblEmpleadoCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 20, 80, 25));
+
+        cboEmpleadoCompra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pnlDatosCompra.add(cboEmpleadoCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(445, 15, 230, 30));
+
+        lblFechaCompra.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblFechaCompra.setText("Fecha:");
+        pnlDatosCompra.add(lblFechaCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(695, 20, 50, 25));
+        pnlDatosCompra.add(txtFechaCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(745, 15, 150, 30));
+
+        pnlCompras.add(pnlDatosCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 920, 60));
+
+        pnlAgregarProductoCompra.setBackground(new java.awt.Color(243, 240, 248));
+        pnlAgregarProductoCompra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblProductoCompra.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblProductoCompra.setForeground(new java.awt.Color(37, 33, 61));
+        lblProductoCompra.setText("Producto:");
+        pnlAgregarProductoCompra.add(lblProductoCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 17, 75, 25));
+
+        lblCantidadCompra.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblCantidadCompra.setText("Cantidad:");
+        pnlAgregarProductoCompra.add(lblCantidadCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(455, 17, 80, 25));
+        pnlAgregarProductoCompra.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(535, 14, 100, 35));
+
+        btnAgregarProductoCompra.setBackground(new java.awt.Color(128, 56, 237));
+        btnAgregarProductoCompra.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnAgregarProductoCompra.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregarProductoCompra.setText("+ AGREGAR");
+        btnAgregarProductoCompra.setOpaque(true);
+        pnlAgregarProductoCompra.add(btnAgregarProductoCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(655, 14, 245, 35));
+
+        cboProductoCompra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pnlAgregarProductoCompra.add(cboProductoCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 14, 350, 35));
+
+        pnlCompras.add(pnlAgregarProductoCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 920, 60));
+
+        pnlDetalleCompra.setBackground(new java.awt.Color(255, 255, 255));
+        pnlDetalleCompra.setRequestFocusEnabled(false);
+        pnlDetalleCompra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tblDetalleCompra.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        tblDetalleCompra.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Producto", "Talla", "Color", "Precio unitario", "Cantidad", "Subtotal"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblDetalleCompra);
+
+        pnlDetalleCompra.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 900, 107));
+
+        pnlCompras.add(pnlDetalleCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 920, 125));
+
+        pnlResumenCompra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblTotalCompra.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTotalCompra.setText("TOTAL:");
+        pnlResumenCompra.add(lblTotalCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 70, 25));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(126, 55, 240));
+        jLabel3.setText("S/ 0.00");
+        pnlResumenCompra.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 10, 150, 25));
+
+        btnQuitarProductoCompra.setBackground(new java.awt.Color(255, 82, 110));
+        btnQuitarProductoCompra.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnQuitarProductoCompra.setForeground(new java.awt.Color(255, 255, 255));
+        btnQuitarProductoCompra.setText("QUITAR PRODUCTO");
+        btnQuitarProductoCompra.setOpaque(true);
+        pnlResumenCompra.add(btnQuitarProductoCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 5, 210, 35));
+
+        btnLimpiarCompra.setBackground(new java.awt.Color(105, 95, 125));
+        btnLimpiarCompra.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnLimpiarCompra.setForeground(new java.awt.Color(255, 255, 255));
+        btnLimpiarCompra.setText("LIMPIAR");
+        pnlResumenCompra.add(btnLimpiarCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(555, 5, 185, 35));
+
+        btnRegistrarCompra.setBackground(new java.awt.Color(128, 56, 237));
+        btnRegistrarCompra.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRegistrarCompra.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarCompra.setText("REGISTRAR COMPRA");
+        btnRegistrarCompra.setFocusable(false);
+        btnRegistrarCompra.setOpaque(true);
+        pnlResumenCompra.add(btnRegistrarCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(755, 5, 155, 35));
+
+        pnlCompras.add(pnlResumenCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 920, 45));
+
+        tabModulos.addTab("COMPRAS", pnlCompras);
 
         pnlVentas.setBackground(new java.awt.Color(243, 240, 248));
         pnlVentas.setMinimumSize(new java.awt.Dimension(930, 480));
@@ -502,7 +674,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnAgregarProductoVenta.setText("+ AGREGAR");
         pnlAgregarProductoVenta.add(btnAgregarProductoVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 15, 245, 30));
 
-        pnlVentas.add(pnlAgregarProductoVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 920, 65));
+        pnlVentas.add(pnlAgregarProductoVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 920, 50));
 
         spDetalleVenta.setBackground(new java.awt.Color(216, 201, 244));
         spDetalleVenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -523,16 +695,60 @@ public class VistaPrincipal extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tblDetalleVenta.setGridColor(new java.awt.Color(225, 225, 225));
         tblDetalleVenta.setSelectionBackground(new java.awt.Color(216, 201, 244));
         spDetalleVenta.setViewportView(tblDetalleVenta);
 
-        pnlVentas.add(spDetalleVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 920, 140));
+        pnlVentas.add(spDetalleVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 920, 120));
+
+        pnlResumenVenta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblTotalVenta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTotalVenta.setForeground(new java.awt.Color(36, 32, 57));
+        lblTotalVenta.setText("TOTAL:");
+        lblTotalVenta.setOpaque(true);
+        pnlResumenVenta.add(lblTotalVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 12, 80, 30));
+
+        lblMontoTotalVenta.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblMontoTotalVenta.setForeground(new java.awt.Color(124, 58, 237));
+        lblMontoTotalVenta.setText("S/ 0.00");
+        lblMontoTotalVenta.setOpaque(true);
+        pnlResumenVenta.add(lblMontoTotalVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 12, 150, 30));
+
+        btnQuitarProductoVenta.setBackground(new java.awt.Color(229, 72, 88));
+        btnQuitarProductoVenta.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnQuitarProductoVenta.setForeground(new java.awt.Color(255, 255, 255));
+        btnQuitarProductoVenta.setText("QUITAR PRODUCTO");
+        btnQuitarProductoVenta.setOpaque(true);
+        pnlResumenVenta.add(btnQuitarProductoVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 180, 35));
+
+        btnLimpiarVenta.setBackground(new java.awt.Color(98, 91, 113));
+        btnLimpiarVenta.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnLimpiarVenta.setForeground(new java.awt.Color(255, 255, 255));
+        btnLimpiarVenta.setText("LIMPIAR");
+        btnLimpiarVenta.setOpaque(true);
+        pnlResumenVenta.add(btnLimpiarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(475, 10, 150, 35));
+
+        btnRegistrarVenta.setBackground(new java.awt.Color(124, 58, 237));
+        btnRegistrarVenta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRegistrarVenta.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarVenta.setText("REGISTRAR VENTA");
+        btnRegistrarVenta.setOpaque(true);
+        pnlResumenVenta.add(btnRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 10, 250, 35));
+
+        pnlVentas.add(pnlResumenVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 920, 60));
 
         tabModulos.addTab("VENTAS", pnlVentas);
 
@@ -577,6 +793,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarProductoCompra;
     private javax.swing.JButton btnAgregarProductoVenta;
     private javax.swing.JButton btnBuscarCategoria;
     private javax.swing.JButton btnBuscarCliente;
@@ -586,27 +803,45 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarCliente;
     private javax.swing.JButton btnLimpiarCategoria;
     private javax.swing.JButton btnLimpiarCliente;
+    private javax.swing.JButton btnLimpiarCompra;
+    private javax.swing.JButton btnLimpiarVenta;
     private javax.swing.JButton btnNuevaCategoria;
     private javax.swing.JButton btnNuevoCliente;
+    private javax.swing.JButton btnQuitarProductoCompra;
+    private javax.swing.JButton btnQuitarProductoVenta;
+    private javax.swing.JButton btnRegistrarCompra;
+    private javax.swing.JButton btnRegistrarVenta;
     private javax.swing.JComboBox<String> cboClienteVenta;
+    private javax.swing.JComboBox<String> cboEmpleadoCompra;
     private javax.swing.JComboBox<String> cboEmpleadoVenta;
+    private javax.swing.JComboBox<String> cboProductoCompra;
     private javax.swing.JComboBox<String> cboProductoVenta;
+    private javax.swing.JComboBox<String> cboProveedor;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblBuscarCategoria;
     private javax.swing.JLabel lblBuscarCliente;
+    private javax.swing.JLabel lblCantidadCompra;
     private javax.swing.JLabel lblCantidadVenta;
     private javax.swing.JLabel lblClienteVenta;
+    private javax.swing.JLabel lblEmpleadoCompra;
     private javax.swing.JLabel lblEmpleadoVenta;
+    private javax.swing.JLabel lblFechaCompra;
     private javax.swing.JLabel lblFechaVenta;
+    private javax.swing.JLabel lblMontoTotalVenta;
+    private javax.swing.JLabel lblProductoCompra;
     private javax.swing.JLabel lblProductoVenta;
+    private javax.swing.JLabel lblProveedor;
     private javax.swing.JLabel lblSubtitulo;
     private javax.swing.JLabel lblSubtituloCategorias;
     private javax.swing.JLabel lblSubtituloClientes;
@@ -616,15 +851,24 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblTituloClientes;
     private javax.swing.JLabel lblTituloProductos;
     private javax.swing.JLabel lblTituloVentas;
+    private javax.swing.JLabel lblTotalCompra;
+    private javax.swing.JLabel lblTotalVenta;
+    private javax.swing.JPanel pnlAgregarProductoCompra;
     private javax.swing.JPanel pnlAgregarProductoVenta;
     private javax.swing.JPanel pnlBusquedaCategorias;
     private javax.swing.JPanel pnlBusquedaClientes;
     private javax.swing.JPanel pnlCategorias;
+    private javax.swing.JPanel pnlCompras;
     private javax.swing.JPanel pnlContenido;
+    private javax.swing.JPanel pnlDatosCompra;
     private javax.swing.JPanel pnlDatosVenta;
+    private javax.swing.JPanel pnlDetalleCompra;
     private javax.swing.JPanel pnlEncabezado;
+    private javax.swing.JPanel pnlEncabezadoCompras;
     private javax.swing.JPanel pnlEncabezadoVentas;
     private javax.swing.JPanel pnlProductos;
+    private javax.swing.JPanel pnlResumenCompra;
+    private javax.swing.JPanel pnlResumenVenta;
     private javax.swing.JPanel pnlVentas;
     private javax.swing.JScrollPane spCategorias;
     private javax.swing.JScrollPane spClientes;
@@ -633,11 +877,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tabModulos;
     private javax.swing.JTable tblCategorias;
     private javax.swing.JTable tblClientes;
+    private javax.swing.JTable tblDetalleCompra;
     private javax.swing.JTable tblDetalleVenta;
     private javax.swing.JTable tblProductos;
     private javax.swing.JTextField txtBuscarCategoria;
     private javax.swing.JTextField txtBuscarCliente;
     private javax.swing.JTextField txtCantidadVenta;
+    private javax.swing.JTextField txtFechaCompra;
     private javax.swing.JTextField txtFechaVenta;
     // End of variables declaration//GEN-END:variables
 }
