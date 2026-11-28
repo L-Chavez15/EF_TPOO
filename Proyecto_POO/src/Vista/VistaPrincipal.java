@@ -5,7 +5,9 @@
 package Vista;
 
 import Controlador.ControladorCategoria;
+import Controlador.ControladorProducto;
 import Modelo.Categoria;
+import Modelo.Producto;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -18,6 +20,7 @@ import javax.swing.JOptionPane;
 public class VistaPrincipal extends javax.swing.JFrame {
     
     private ControladorCategoria controladorCategoria;
+    private ControladorProducto controladorProducto;
     private int contadorCategoria = 1;//Este contador permitirá asignar IDs consecutivos
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaPrincipal.class.getName());
 
@@ -29,6 +32,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         getContentPane().setBackground(new java.awt.Color(243, 240, 248));
         
         controladorCategoria = new ControladorCategoria();
+        controladorProducto = new ControladorProducto();
     }
     private void actualizarTablaCategorias()
     {
@@ -38,6 +42,34 @@ public class VistaPrincipal extends javax.swing.JFrame {
         for (Categoria c : controladorCategoria.obtenerTodos())//obtiene las categorías registradas
         {
             modelo.addRow(new Object[]{c.getIdCategoria(),c.getNombreCategoria()});//agrega sus datos a la tabla.
+        }
+    }
+    private void actualizarTablaProductos()
+    {
+        javax.swing.table.DefaultTableModel modelo =
+                (javax.swing.table.DefaultTableModel) tblProductos.getModel();
+
+        modelo.setRowCount(0);//Limpia la tabla.
+
+        //Recorre cada producto registrado
+        for (Producto p : controladorProducto.obtenerTodos())
+        {
+            String nombreCategoria = "";
+
+            if (p.getCategoria() != null)
+            {
+                nombreCategoria = p.getCategoria().getNombreCategoria();
+            }
+
+            modelo.addRow(new Object[]{
+                p.getIdProducto(),
+                p.getNombre(),
+                p.getTalla(),
+                p.getColor(),
+                nombreCategoria,
+                p.getPrecio(),
+                p.getStock()
+            });
         }
     }
 
@@ -62,11 +94,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         spProductos = new javax.swing.JScrollPane();
         tblProductos = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnNuevoProducto = new javax.swing.JButton();
+        btnEditarProducto = new javax.swing.JButton();
+        btnEliminarProducto = new javax.swing.JButton();
+        btnLimpiarProducto = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
         pnlCategorias = new javax.swing.JPanel();
         lblTituloCategorias = new javax.swing.JLabel();
         lblSubtituloCategorias = new javax.swing.JLabel();
@@ -252,36 +284,36 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(243, 240, 248));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setBackground(new java.awt.Color(121, 63, 230));
-        jButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("+ NUEVO");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 160, 40));
+        btnNuevoProducto.setBackground(new java.awt.Color(121, 63, 230));
+        btnNuevoProducto.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnNuevoProducto.setForeground(new java.awt.Color(255, 255, 255));
+        btnNuevoProducto.setText("+ NUEVO");
+        jPanel1.add(btnNuevoProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 160, 40));
 
-        jButton2.setBackground(new java.awt.Color(121, 63, 230));
-        jButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("✎ Editar");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 160, 40));
+        btnEditarProducto.setBackground(new java.awt.Color(121, 63, 230));
+        btnEditarProducto.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnEditarProducto.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditarProducto.setText("✎ Editar");
+        btnEditarProducto.addActionListener(this::btnEditarProductoActionPerformed);
+        jPanel1.add(btnEditarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 160, 40));
 
-        jButton3.setBackground(new java.awt.Color(121, 63, 230));
-        jButton3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Eliminar");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 160, 40));
+        btnEliminarProducto.setBackground(new java.awt.Color(121, 63, 230));
+        btnEliminarProducto.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnEliminarProducto.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminarProducto.setText("Eliminar");
+        jPanel1.add(btnEliminarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 160, 40));
 
-        jButton4.setBackground(new java.awt.Color(98, 91, 117));
-        jButton4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Limpiar");
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 160, 40));
+        btnLimpiarProducto.setBackground(new java.awt.Color(98, 91, 117));
+        btnLimpiarProducto.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnLimpiarProducto.setForeground(new java.awt.Color(255, 255, 255));
+        btnLimpiarProducto.setText("Limpiar");
+        jPanel1.add(btnLimpiarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 160, 40));
 
-        jButton5.setBackground(new java.awt.Color(220, 53, 69));
-        jButton5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("CERRAR SESIÓN");
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, 160, 40));
+        btnCerrarSesion.setBackground(new java.awt.Color(220, 53, 69));
+        btnCerrarSesion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnCerrarSesion.setText("CERRAR SESIÓN");
+        jPanel1.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, 160, 40));
 
         pnlProductos.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 300, 910, 65));
 
@@ -799,9 +831,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBuscarCategoriaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnEditarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProductoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnEditarProductoActionPerformed
 
     private void btnLimpiarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarCategoriaActionPerformed
         // TODO add your handling code here:
@@ -941,16 +973,21 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregarProductoVenta;
     private javax.swing.JButton btnBuscarCategoria;
     private javax.swing.JButton btnBuscarCliente;
+    private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnEditarCategoria;
     private javax.swing.JButton btnEditarCliente;
+    private javax.swing.JButton btnEditarProducto;
     private javax.swing.JButton btnEliminarCategoria;
     private javax.swing.JButton btnEliminarCliente;
+    private javax.swing.JButton btnEliminarProducto;
     private javax.swing.JButton btnLimpiarCategoria;
     private javax.swing.JButton btnLimpiarCliente;
     private javax.swing.JButton btnLimpiarCompra;
+    private javax.swing.JButton btnLimpiarProducto;
     private javax.swing.JButton btnLimpiarVenta;
     private javax.swing.JButton btnNuevaCategoria;
     private javax.swing.JButton btnNuevoCliente;
+    private javax.swing.JButton btnNuevoProducto;
     private javax.swing.JButton btnQuitarProductoCompra;
     private javax.swing.JButton btnQuitarProductoVenta;
     private javax.swing.JButton btnRegistrarCompra;
@@ -961,11 +998,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboProductoCompra;
     private javax.swing.JComboBox<String> cboProductoVenta;
     private javax.swing.JComboBox<String> cboProveedor;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

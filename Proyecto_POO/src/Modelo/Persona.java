@@ -173,8 +173,18 @@ public abstract class Persona
         return Telefono;
     }
 
-    public void setTelefono(String Telefono) {
-        this.Telefono = Telefono;
+    public boolean setTelefono(String Telefono) 
+    { 
+        if (Telefono != null)
+        {
+            if (Telefono.matches("[0-9]{9}"))
+            {
+                this.Telefono = Telefono;
+                return true;
+            }
+        }
+        System.out.println("ERROR: EL TELEFONO DEBE TENER 9 DIGITOS");
+        return false;
     }
     
     public abstract void  verDatos();
