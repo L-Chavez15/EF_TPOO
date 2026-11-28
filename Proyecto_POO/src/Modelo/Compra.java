@@ -29,8 +29,19 @@ public class Compra
         return idCompra;
     }
 
-    public void setIdCompra(Integer idCompra) {
-        this.idCompra = idCompra;
+    public boolean setIdCompra(Integer idCompra)
+    {
+        if (idCompra != null)
+        {
+            if (idCompra >= 0)
+            {
+                this.idCompra = idCompra;
+                return true;
+            }
+        }
+
+        System.out.println("ERROR: ID DE COMPRA INVALIDO");
+        return false;
     }
 
     public LocalDate getFechaCompra() {
@@ -42,7 +53,7 @@ public class Compra
     }
 
     public double getTotalCompra() {
-        return totalCompra;
+        return calcularTotalCompra();
     }
 
     public void setTotalCompra(double totalCompra) {
@@ -53,14 +64,39 @@ public class Compra
         return lista_detalleCompra;
     }
 
-    public void setLista_detalleCompra(ArrayList<DetalleCompra> lista_detalleCompra) {
+    public boolean setLista_detalleCompra(ArrayList<DetalleCompra> lista_detalleCompra) 
+    {
+        if (lista_detalleCompra == null)
+        {
+            System.out.println("ERROR: LISTA DE COMPRA INVALIDA");
+            return false;
+        }
+
+        for (DetalleCompra dc : lista_detalleCompra)
+        {
+            if (dc == null)
+            {
+                System.out.println("ERROR: DETALLE DE COMPRA INVALIDO");
+                return false;
+            }
+        }
+
         this.lista_detalleCompra = lista_detalleCompra;
+        calcularTotalCompra();
+        return true;
     }
     
-    public void agregarDetalle(DetalleCompra dc) {
-        if (dc != null) {
+    public boolean agregarDetalle(DetalleCompra dc) 
+    {
+         if (dc != null) {
             lista_detalleCompra.add(dc);
             calcularTotalCompra();
+            return true;
+        }
+        else 
+        {
+            System.out.println("Detalle de compra invalido");
+            return false;
         }
     }
 

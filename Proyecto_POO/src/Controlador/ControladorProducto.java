@@ -48,6 +48,23 @@ public class ControladorProducto
         }
         return null;
     }
+    
+    //busca si existe un producto con el mismo nombre, talla y color
+    public boolean existeProducto(String nombre, String talla, String color)
+    {
+        //obtenemos los registros existentes
+        for (Producto p : lista_productos)
+        {
+            //verificamos si existe la misma combinación de nombre, talla y color
+            if (p.getNombre().equalsIgnoreCase(nombre)&& p.getTalla().equalsIgnoreCase(talla)&& p.getColor().equalsIgnoreCase(color))
+            {
+                return true;
+            }
+        }
+        //si no existe la combinación, retorna false
+        return false;
+    }
+    
 
     // Se utiliza para mostrar los registros en las tablas de la vista.
     public ArrayList<Producto> obtenerTodos()

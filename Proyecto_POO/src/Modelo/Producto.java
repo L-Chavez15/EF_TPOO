@@ -55,7 +55,7 @@ public class Producto
     {
        if (nombre != null && nombre.length() > 0) 
        {
-        if (nombre.matches("[A-Z-a-z]+")) 
+        if (nombre.trim().matches("[A-Z-a-z]+")) 
         {
             this.nombre = nombre;
             return true;

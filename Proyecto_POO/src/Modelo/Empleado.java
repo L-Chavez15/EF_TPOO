@@ -18,7 +18,7 @@ public class Empleado extends Persona
     {
     }
     public Empleado(String usuario, String contrasena, double sueldo, String nombre,String apellidoPa, String apellidoMa, String tipoDoc, String nroDoc, String telefono) {
-        super(nombre, apellidoPa, apellidoMa, tipoDoc, nroDoc, telefono);
+        super(tipoDoc, nroDoc,nombre, apellidoPa, apellidoMa,telefono);//se utiliza para llamar al constructor de una clase padre desde una clase hija
         this.usuario = usuario;
         this.contrasena = contrasena;
         this.sueldo = sueldo;
@@ -54,16 +54,35 @@ public class Empleado extends Persona
         return contrasena;
     }
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public boolean setContrasena(String contrasena) 
+    {
+        if (contrasena != null)
+        {
+            if (contrasena.length() >= 8)
+            {
+                this.contrasena = contrasena;
+                return true;
+            }
+        }
+        System.out.println("ERROR: LA CONTRASENA DEBE TENER 8 CARACTERES COMO MINIMO");
+        return false;
     }
 
     public double getSueldo() {
         return sueldo;
     }
 
-    public void setSueldo(double sueldo) {
-        this.sueldo = sueldo;
+    public boolean setSueldo(double sueldo) {
+        if (sueldo >= 0)
+        {
+            this.sueldo = sueldo;
+            return true;
+        }
+        else
+        {
+            System.out.println("ERROR: EL SUELDO NO PUEDE SER NEGATIVO");
+            return false;
+        }
     }
     
      public void registrarVenta(Venta venta)

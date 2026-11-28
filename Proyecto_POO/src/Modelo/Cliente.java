@@ -38,8 +38,23 @@ public class Cliente extends Persona
     
     public void realizarCompra(Compra compra) 
     {
-        System.out.println("El cliente " + getNombre() + " esta realizando una compra.");
-        compra.mostrar();
+        try
+        {
+            if (compra == null)
+            {
+                System.out.println("ERROR: NO EXISTE UNA COMPRA");
+                return;
+            }
+
+            System.out.println("El cliente " + getNombre()
+                    + " esta realizando una compra.");
+
+            compra.mostrar();
+        }
+        catch (RuntimeException e)
+        {
+            System.out.println("ERROR: " + e.getMessage());
+        }
     }
     
     @Override

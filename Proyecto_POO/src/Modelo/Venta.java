@@ -79,24 +79,52 @@ public class Venta
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public boolean setCliente(Cliente cliente) 
+    {
+         if (cliente != null)
+        {
+            this.cliente = cliente;
+            return true;
+        }
+        else
+        {
+            System.out.println("SELECCIONE UN CLIENTE");
+            return false;
+        }
     }
 
     public Empleado getEmpleado() {
         return empleado;
     }
 
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
+    public boolean setEmpleado(Empleado empleado) {
+         if (empleado != null)
+        {
+           this.empleado = empleado;
+           return true;
+        }
+        else
+        {
+            System.out.println("SELECCIONE UN EMPLEADO");
+            return false;
+        }
     }
 
     public FormaPago getFormaPago() {
         return formaPago;
     }
 
-    public void setFormaPago(FormaPago formaPago) {
-        this.formaPago = formaPago;
+    public boolean setFormaPago(FormaPago formaPago) {
+         if (formaPago != null)
+        {
+            this.formaPago = formaPago;
+            return true;
+        }
+        else
+        {
+            System.out.println("SELECCIONE FORMA DE PAGO");
+            return false;
+        }
     }
 
     public ArrayList getLista_detalleVenta() {
