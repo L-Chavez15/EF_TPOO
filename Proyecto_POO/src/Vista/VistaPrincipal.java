@@ -303,6 +303,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnEliminarProducto.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnEliminarProducto.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminarProducto.setText("Eliminar");
+        btnEliminarProducto.addActionListener(this::btnEliminarProductoActionPerformed);
         jPanel1.add(btnEliminarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 160, 40));
 
         btnLimpiarProducto.setBackground(new java.awt.Color(98, 91, 117));
@@ -831,6 +832,99 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     private void btnEditarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProductoActionPerformed
         // TODO add your handling code here:
+        //obtenemos la fila seleccionada
+        int fila = tblProductos.getSelectedRow();
+        //verificamos que se haya seleccionado un producto
+        if (fila != -1)
+        {
+            //obtenemos el ID y buscamos el producto
+            Integer idProducto = (Integer) tblProductos.getValueAt(fila, 0);
+            Producto producto_editar = controladorProducto.buscar(idProducto);
+
+            //solicitamos los nuevos datos
+            String nombreNuevo = JOptionPane.showInputDialog(this, "Ingrese el nuevo nombre:", producto_editar.getNombre());
+            String tallaNueva = JOptionPane.showInputDialog(this, "Ingrese la nueva talla:", producto_editar.getTalla());
+            String colorNuevo = JOptionPane.showInputDialog(this, "Ingrese el nuevo color:", producto_editar.getColor());
+            String precioTexto = JOptionPane.showInputDialog(this, "Ingrese el nuevo precio:", producto_editar.getPrecio());
+            String stockTexto = JOptionPane.showInputDialog(this, "Ingrese el nuevo stock:", producto_editar.getStock());
+
+            //verificamos que no se haya cancelado o dejado campos vacios
+            if (nombreNuevo == null || tallaNueva == null || colorNuevo == null || precioTexto == null || stockTexto == null
+                    || nombreNuevo.trim().isEmpty() || tallaNueva.trim().isEmpty() || colorNuevo.trim().isEmpty()
+                    || precioTexto.trim().isEmpty() || stockTexto.trim().isEmpty())
+            {
+                JOptionPane.showMessageDialog(this, "TODOS LOS CAMPOS SON OBLIGATORIOS");
+                return;
+            }
+            //convertimos el precio y stock ingresados
+            double precioNuevo;
+            Integer stockNuevo;
+            try
+            {
+                precioNuevo = Double.parseDouble(precioTexto.trim());
+                stockNuevo = Integer.parseInt(stockTexto.trim());
+            }
+            catch (NumberFormatException e)
+            {
+                JOptionPane.showMessageDialog(this, "EL PRECIO Y STOCK DEBEN SER NUMERICOS");
+                return;
+            }
+            //obtenemos los registros existentes
+            java.util.ArrayList<Categoria> listaCategorias = controladorCategoria.obtenerTodos();
+
+            //verificamos que contenga registros
+            if (listaCategorias.isEmpty())
+            {
+                JOptionPane.showMessageDialog(this, "PRIMERO DEBE REGISTRAR UNA CATEGORIA");
+                return;
+            }
+
+            //guarda los nombres de las categorías registradas
+            String[] nombresCategorias = new String[listaCategorias.size()];
+
+            for (int i = 0; i < listaCategorias.size(); i++)
+            {
+                nombresCategorias[i] = listaCategorias.get(i).getNombreCategoria();
+            }
+
+            //mostramos las categorías para que el usuario seleccione una
+            String categoriaSeleccionada = (String) JOptionPane.showInputDialog(
+                    this,
+                    "Seleccione la nueva categoría:",
+                    "Categoría",
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    nombresCategorias,
+                    producto_editar.getCategoria().getNombreCategoria()
+            );
+
+            //Si el usuario presiona Cancelar o cierra la ventana, no continuamos con la edición
+            if (categoriaSeleccionada == null)
+            {
+                return;
+            }
+
+            //buscamos la categoría seleccionada
+            Categoria categoriaNueva = controladorCategoria.buscar(categoriaSeleccionada);
+
+            //intentamos modificar el producto
+            if (controladorProducto.editar(idProducto, nombreNuevo.trim(), tallaNueva.trim(),
+                    colorNuevo.trim(), precioNuevo, stockNuevo, categoriaNueva))
+            {
+                //actualizamos la tabla de productos
+                actualizarTablaProductos();
+
+                JOptionPane.showMessageDialog(this, "PRODUCTO MODIFICADO CORRECTAMENTE");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "NO SE PUDO MODIFICAR EL PRODUCTO");
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "SELECCIONE UN PRODUCTO");
+        }
     }//GEN-LAST:event_btnEditarProductoActionPerformed
 
     private void btnLimpiarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarCategoriaActionPerformed
@@ -935,150 +1029,177 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarCategoriaActionPerformed
 
     private void btnNuevoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoProductoActionPerformed
-                         
-    //solicitamos el nombre del producto
-    String nombre = JOptionPane.showInputDialog(this, "Ingrese el nombre del producto:");
+        //solicitamos el nombre del producto
+        String nombre = JOptionPane.showInputDialog(this, "Ingrese el nombre del producto:");
+        //Si el usuario presiona Cancelar o cierra la ventana, no continuamos con el registro
+        if (nombre == null)
+        {
+            return;
+        }
+        //eliminamos los espacios al inicio y al final
+        nombre = nombre.trim();
 
-    //Si el usuario presiona Cancelar o cierra la ventana, no continuamos con el registro
-    if (nombre == null)
-    {
-        return;
-    }
-    //eliminamos los espacios al inicio y al final
-    nombre = nombre.trim();
-    
-    //solicitamos la talla del producto
-    String talla = JOptionPane.showInputDialog(this, "Ingrese la talla del producto:");
+        //solicitamos la talla del producto
+        String talla = JOptionPane.showInputDialog(this, "Ingrese la talla del producto:");
 
-    //Si el usuario presiona Cancelar o cierra la ventana, no continuamos con el registro
-    if (talla == null)
-    {
-        return;
-    }
-    //eliminamos los espacios al inicio y al final
-    talla = talla.trim();
-    //solicitamos el color del producto
-    String color = JOptionPane.showInputDialog(this, "Ingrese el color del producto:");
+        //Si el usuario presiona Cancelar o cierra la ventana, no continuamos con el registro
+        if (talla == null)
+        {
+            return;
+        }
+        //eliminamos los espacios al inicio y al final
+        talla = talla.trim();
+        //solicitamos el color del producto
+        String color = JOptionPane.showInputDialog(this, "Ingrese el color del producto:");
 
-    //Si el usuario presiona Cancelar o cierra la ventana, no continuamos con el registro
-    if (color == null)
-    {
-        return;
-    }
-    //eliminamos los espacios al inicio y al final
-    color = color.trim();
+        //Si el usuario presiona Cancelar o cierra la ventana, no continuamos con el registro
+        if (color == null)
+        {
+            return;
+        }
+        //eliminamos los espacios al inicio y al final
+        color = color.trim();
 
-    //verificamos si existe un producto con la misma combinación de nombre, talla y color
-    if (controladorProducto.existeProducto(nombre, talla, color))
-    {
-        JOptionPane.showMessageDialog(this, "EL PRODUCTO YA SE ENCUENTRA REGISTRADO");
-        return;
-    }
+        //verificamos si existe un producto con la misma combinación de nombre, talla y color
+        if (controladorProducto.existeProducto(nombre, talla, color))
+        {
+            JOptionPane.showMessageDialog(this, "EL PRODUCTO YA SE ENCUENTRA REGISTRADO");
+            return;
+        }
 
 
-    //solicitamos el precio del producto
-    String precioTexto = JOptionPane.showInputDialog(this, "Ingrese el precio del producto:");
+        //solicitamos el precio del producto
+        String precioTexto = JOptionPane.showInputDialog(this, "Ingrese el precio del producto:");
 
-    //Si el usuario presiona Cancelar o cierra la ventana, no continuamos con el registro
-    if (precioTexto == null)
-    {
-        return;
-    }
+        //Si el usuario presiona Cancelar o cierra la ventana, no continuamos con el registro
+        if (precioTexto == null)
+        {
+            return;
+        }
 
-    //eliminamos los espacios al inicio y al final
-    precioTexto = precioTexto.trim();
+        //eliminamos los espacios al inicio y al final
+        precioTexto = precioTexto.trim();
 
-    //convertimos el precio ingresado a double
-    double precio;
+        //convertimos el precio ingresado a double
+        double precio;
 
-    try
-    {
-        precio = Double.parseDouble(precioTexto);
-    }
-    catch (NumberFormatException e)
-    {
-        JOptionPane.showMessageDialog(this, "EL PRECIO DEBE SER NUMERICO");
-        return;
-    }
+        try
+        {
+            precio = Double.parseDouble(precioTexto);
+        }
+        catch (NumberFormatException e)
+        {
+            JOptionPane.showMessageDialog(this, "EL PRECIO DEBE SER NUMERICO");
+            return;
+        }
 
-    //solicitamos el stock del producto
-    String stockTexto = JOptionPane.showInputDialog(this, "Ingrese el stock del producto:");
+        //solicitamos el stock del producto
+        String stockTexto = JOptionPane.showInputDialog(this, "Ingrese el stock del producto:");
 
-    //Si el usuario presiona Cancelar o cierra la ventana, no continuamos con el registro
-    if (stockTexto == null)
-    {
-        return;
-    }
+        //Si el usuario presiona Cancelar o cierra la ventana, no continuamos con el registro
+        if (stockTexto == null)
+        {
+            return;
+        }
 
-    //eliminamos los espacios al inicio y al final
-    stockTexto = stockTexto.trim();
+        //eliminamos los espacios al inicio y al final
+        stockTexto = stockTexto.trim();
 
-    //convertimos el stock ingresado a entero
-    int stock;
+        //convertimos el stock ingresado a entero
+        int stock;
 
-    try
-    {
-        stock = Integer.parseInt(stockTexto);
-    }
-    catch (NumberFormatException e)
-    {
-        JOptionPane.showMessageDialog(this, "EL STOCK DEBE SER UN NUMERO ENTERO");
-        return;
-    }
+        try
+        {
+            stock = Integer.parseInt(stockTexto);
+        }
+        catch (NumberFormatException e)
+        {
+            JOptionPane.showMessageDialog(this, "EL STOCK DEBE SER UN NUMERO ENTERO");
+            return;
+        }
 
 
-    //obtenemos los registros existentes
-    java.util.ArrayList<Categoria> listaCategorias = controladorCategoria.obtenerTodos();
+        //obtenemos los registros existentes
+        java.util.ArrayList<Categoria> listaCategorias = controladorCategoria.obtenerTodos();
 
-    //verificamos que contenga registros
-    if (listaCategorias.isEmpty())
-    {
-        JOptionPane.showMessageDialog(this, "PRIMERO DEBE REGISTRAR UNA CATEGORIA");
-        return;
-    }
-    //guarda los nombres de las categorías registradas
-    String[] nombresCategorias = new String[listaCategorias.size()];
+        //verificamos que contenga registros
+        if (listaCategorias.isEmpty())
+        {
+            JOptionPane.showMessageDialog(this, "PRIMERO DEBE REGISTRAR UNA CATEGORIA");
+            return;
+        }
+        //guarda los nombres de las categorías registradas
+        String[] nombresCategorias = new String[listaCategorias.size()];
 
-    for (int i = 0; i < listaCategorias.size(); i++)
-    {
-        nombresCategorias[i] = listaCategorias.get(i).getNombreCategoria();
-    }
-    //mostramos las categorías para que el usuario seleccione una
-    String categoriaSeleccionada = (String) JOptionPane.showInputDialog(
-            this,
-            "Seleccione la categoría del producto:",
-            "Categoría",
-            JOptionPane.QUESTION_MESSAGE,
-            null,
-            nombresCategorias,
-            nombresCategorias[0]
-    );
-    //Si el usuario presiona Cancelar o cierra la ventana, no continuamos con el registro
-    if (categoriaSeleccionada == null)
-    {
-        return;
-    }
-    //buscamos la categoría seleccionada
-    Categoria categoria = controladorCategoria.buscar(categoriaSeleccionada);
+        for (int i = 0; i < listaCategorias.size(); i++)
+        {
+            nombresCategorias[i] = listaCategorias.get(i).getNombreCategoria();
+        }
+        //mostramos las categorías para que el usuario seleccione una
+        String categoriaSeleccionada = (String) JOptionPane.showInputDialog(
+                this,
+                "Seleccione la categoría del producto:",
+                "Categoría",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                nombresCategorias,
+                nombresCategorias[0]
+        );
+        //Si el usuario presiona Cancelar o cierra la ventana, no continuamos con el registro
+        if (categoriaSeleccionada == null)
+        {
+            return;
+        }
+        //buscamos la categoría seleccionada
+        Categoria categoria = controladorCategoria.buscar(categoriaSeleccionada);
 
-    //creamos el objeto Producto
-    Producto nuevoProducto = new Producto(contadorProducto,nombre,talla,color,precio,stock,categoria);
-    //verificamos los datos del producto utilizando sus métodos
-    if (controladorProducto.agregar(nuevoProducto))
-    {
-        //aumentamos el contador de productos
-        contadorProducto++;
-        //actualizamos la tabla de productos
-        actualizarTablaProductos();
+        //creamos el objeto Producto
+        Producto nuevoProducto = new Producto(contadorProducto,nombre,talla,color,precio,stock,categoria);
+        //verificamos los datos del producto utilizando sus métodos
+        if (controladorProducto.agregar(nuevoProducto))
+        {
+            //aumentamos el contador de productos
+            contadorProducto++;
+            //actualizamos la tabla de productos
+            actualizarTablaProductos();
 
-        JOptionPane.showMessageDialog(this, "PRODUCTO REGISTRADO CORRECTAMENTE");
-    }
-    else
-    {
-        JOptionPane.showMessageDialog(this, "NO SE PUDO REGISTRAR EL PRODUCTO");
-    }
- 
+            JOptionPane.showMessageDialog(this, "PRODUCTO REGISTRADO CORRECTAMENTE");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "NO SE PUDO REGISTRAR EL PRODUCTO");
+        }
     }//GEN-LAST:event_btnNuevoProductoActionPerformed
+
+    private void btnEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductoActionPerformed
+        // TODO add your handling code here:
+        //obtenemos la fila seleccionada
+        int fila = tblProductos.getSelectedRow();
+
+        //verificamos que se haya seleccionado un producto
+        if (fila != -1)
+        {
+            //obtenemos el ID del producto
+            Integer idProducto = (Integer) tblProductos.getValueAt(fila, 0);
+
+            //intentamos eliminar el producto
+            if (controladorProducto.eliminar(idProducto))
+            {
+                //actualizamos la tabla de productos
+                actualizarTablaProductos();
+
+                JOptionPane.showMessageDialog(this, "PRODUCTO ELIMINADO CORRECTAMENTE");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "NO SE PUDO ELIMINAR EL PRODUCTO");
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "SELECCIONE UN PRODUCTO");
+        }
+    }//GEN-LAST:event_btnEliminarProductoActionPerformed
 
     /**
      * @param args the command line arguments

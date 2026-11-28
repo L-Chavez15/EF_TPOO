@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import Modelo.Categoria;
 import Modelo.Producto;
 import java.util.ArrayList;
 
@@ -47,6 +48,65 @@ public class ControladorProducto
             }
         }
         return null;
+    }
+    public boolean editar(Integer idProducto, String nombreNuevo, String tallaNueva,String colorNuevo, double precioNuevo, Integer stockNuevo, Categoria categoriaNueva)
+    {
+        Producto producto_editar = null;
+
+        for (Producto p : lista_productos)
+        {
+            if (p.getIdProducto().equals(idProducto))
+            {
+                producto_editar = p;
+            }
+        }
+
+        if (producto_editar != null)
+        {
+            for (Producto p : lista_productos)
+            {
+                if (!p.getIdProducto().equals(idProducto))
+                {
+                    if (p.getNombre().equalsIgnoreCase(nombreNuevo)
+                            && p.getTalla().equalsIgnoreCase(tallaNueva)
+                            && p.getColor().equalsIgnoreCase(colorNuevo))
+                    {
+                        System.out.println("ERROR: PRODUCTO YA REGISTRADO");
+                        return false;
+                    }
+                }
+            }
+            producto_editar.setNombre(nombreNuevo);
+            producto_editar.setTalla(tallaNueva);
+            producto_editar.setColor(colorNuevo);
+            producto_editar.setPrecio(precioNuevo);
+            producto_editar.setStock(stockNuevo);
+            producto_editar.setCategoria(categoriaNueva);
+
+            return true;
+        }
+
+        return false;
+    }
+    public boolean eliminar(Integer idProducto)
+    {
+        Producto producto_eliminar = null;
+
+        for (Producto p : lista_productos)
+        {
+            if (p.getIdProducto().equals(idProducto))
+            {
+                producto_eliminar = p;
+            }
+        }
+
+        if (producto_eliminar != null)
+        {
+            lista_productos.remove(producto_eliminar);
+            return true;
+        }
+
+        return false;
     }
     
     //busca si existe un producto con el mismo nombre, talla y color
